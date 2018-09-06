@@ -1,5 +1,5 @@
 {
-  "name": "ClientApp",
+  "name": "aurelia-app",
   "type": "project:application",
   "bundler": {
     "id": "webpack",
@@ -35,8 +35,8 @@
     "fileExtension": ".html"
   },
   "cssProcessor": {
-    "id": "none",
-    "displayName": "None",
+    "id": "postcss",
+    "displayName": "PostCSS",
     "fileExtension": ".css"
   },
   "editor": {
@@ -45,13 +45,17 @@
   },
   "unitTestRunners": [
     {
-      "id": "none",
-      "displayName": "None"
+      "id": "karma",
+      "displayName": "Karma"
+    },
+    {
+      "id": "jest",
+      "displayName": "Jest"
     }
   ],
   "integrationTestRunner": {
-    "id": "none",
-    "displayName": "None"
+    "id": "protractor",
+    "displayName": "Protractor"
   },
   "paths": {
     "root": "src",
@@ -60,6 +64,10 @@
     "attributes": "resources/attributes",
     "valueConverters": "resources/value-converters",
     "bindingBehaviors": "resources/binding-behaviors"
+  },
+  "testFramework": {
+    "id": "jasmine",
+    "displayName": "Jasmine"
   },
   "packageManager": "npm"
 }

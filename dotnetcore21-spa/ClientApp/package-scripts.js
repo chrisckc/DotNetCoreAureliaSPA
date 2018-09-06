@@ -1,18 +1,59 @@
 const {series, crossEnv, concurrent, rimraf} = require('nps-utils')
+const {config: {port : E2E_PORT}} = require('./test/protractor.conf')
 
 module.exports = {
   scripts: {
     default: 'nps webpack',
     test: {
+      default: 'nps test.jest',
+      jest: {
+        default: series(
+          rimraf('test/coverage-jest'),
+          'jest'
+        ),
+        accept: 'jest -u',
+        watch: 'jest --watch',
+      },
 
+      karma: {
+        default: series(
+          rimraf('test/coverage-karma'),
+          'karma start test/karma.conf.js'
+        ),
+        watch: 'karma start test/karma.conf.js --auto-watch --no-single-run',
+        debug: 'karma start test/karma.conf.js --auto-watch --no-single-run --debug'
+      },
 
       lint: {
         default: 'eslint src',
         fix: 'eslint src --fix'
       },
       all: concurrent({
+        browser: series.nps('test.karma'),
+        jest: 'nps test.jest',
         lint: 'nps test.lint'
       })
+    },
+    e2e: {
+      default: concurrent({
+        webpack: `webpack-dev-server --inline --port=${E2E_PORT}`,
+        protractor: 'nps e2e.whenReady',
+      }) + ' --kill-others --success first',
+      protractor: {
+        install: 'webdriver-manager update',
+        default: series(
+          'nps e2e.protractor.install',
+          'protractor test/protractor.conf.js'
+        ),
+        debug: series(
+          'nps e2e.protractor.install',
+          'protractor test/protractor.conf.js --elementExplorer'
+        ),
+      },
+      whenReady: series(
+        `wait-on --timeout 120000 http-get://localhost:${E2E_PORT}/index.html`,
+        'nps e2e.protractor'
+      ),
     },
     build: 'nps webpack.build',
     webpack: {

@@ -22,6 +22,10 @@ const baseUrl = '/';
 
 const cssRules = [
   { loader: 'css-loader' },
+  {
+    loader: 'postcss-loader',
+    options: { plugins: () => [require('autoprefixer')({ browsers: ['last 2 versions'] })]}
+  }
 ];
 
 module.exports = ({production, server, extractCss, coverage, analyze, karma} = {}) => ({
