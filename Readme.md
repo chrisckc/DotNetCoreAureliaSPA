@@ -11,7 +11,9 @@ Specifically projects that used a Node/Express backend and Aurelia SPA frontend 
 
 ## Docker support
 
-Experimented with HTTPS support in docker container
+Experimented with HTTPS support in docker container, used the auto generated "ASP.NET Core HTTPS Development Certificate" for testing. I prefer to use Nginx for adding HTTPS support.
+
+Note: If running this on a separate Docker host rather than on your development machine, you will see a certificate error because the dev certificate is for localhost so it won't match the hostname of a remote host.
 
 ### To run in Dev mode (no real use for this scenario)
 ```docker-compose -f docker-compose.yml -f docker-compose.dev.yml up```
@@ -33,7 +35,7 @@ and you should be redirected to:
 https://dockerhost:5001
 
 This works because the Aurelia dev server not used in production mode.
-Edit the ports in the docker-compose file for a real production env
+Edit the ports in the docker-compose file and use a real certificate for a real production environment.
 
 ## Docker HTTPS details
 
