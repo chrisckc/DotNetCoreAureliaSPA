@@ -41,6 +41,7 @@ To remove the HTTPS support in docker, comment out the "ASPNETCORE_URLS" and "AS
 
 Also need to either remove the UserSecrets file or comment out the volume mapping:
 "....:/root/.microsoft/usersecrets:ro,z"
+
 otherwise the default Startup code will try to look for the certificate.
 
 Also comment out the "Kestrel:Certificates:..." env vars if used instead of UserSecrets

@@ -2,7 +2,7 @@
 
 This is based on the latest Angular template, the template was then updated to use Aurelia instead.
 
-This was created by running 'dotnet new angular' using the latest dotnet v2.1 built-in SpaTemplates
+This was created by running 'dotnet new angular' using the latest dotnet v2.1 built-in SpaTemplates.
 The ClientApp dir was then replaced by a new one generated using the Aurelia CLI.
 This was done to use the new style of .NET Core SPA templates which use the
 'UseProxyToSpaDevelopmentServer' middleware rather than the 'UseWebpackDevMiddleware'.
@@ -23,12 +23,17 @@ The decision to just proxy the requests to the SPA Dev server seems to have been
 Running both the .NET backend and ClientApp under the .NET host has advantages in both development and production for small projects. The ClientApp can easily be separated out and served from another location by another method if required, as long as CORS is used. To avoid CORS, Nginx reverse proxy could be used to serve both the .NET App and ClientApp from the same origin.
 
 The previous SPA template method is detailed here:
+
 https://blogs.msdn.microsoft.com/webdev/2017/02/14/building-single-page-applications-on-asp-net-core-with-javascriptservices/
+
 https://docs.microsoft.com/en-us/aspnet/core/client-side/spa-services?view=aspnetcore-2.0
 
 The new method detailed here:
+
 https://github.com/aspnet/JavaScriptServices/issues/1288
+
 https://github.com/aspnet/JavaScriptServices/issues/1288#issuecomment-346003334
+
 https://docs.microsoft.com/en-us/aspnet/core/client-side/spa/angular?view=aspnetcore-2.1&tabs=visual-studio
 
 ## Running the Project
@@ -108,8 +113,11 @@ Updated Startup.cs:
 Added some debugging statements to the Startup method.
 
 Replaced:
+
 ```spa.UseAngularCliServer(npmScript: "start");```
+
 with:
+
 ```spa.UseProxyToSpaDevelopmentServer(baseUri: "http://localhost:8080");```
 
 Edited Program.cs:
@@ -117,17 +125,24 @@ Added sample code to demonstrate manually specifying the cert location and passw
 
 To fix publishing error, edited .csproj file:
 Replaced the line:
+
 ```<Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />```
+
 with:
+
 ```<Exec WorkingDirectory="$(SpaRoot)" Command="au build --env prod" />```
+
 or, if you want to build Aurelia using webpack directly rather than use the CLI:
+
 ```<Exec WorkingDirectory="$(SpaRoot)" Command="npm run build --prod" />```
+
 Removed the line that is not required for Aurelia:
+
 ```<Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />```
 
 Added UserSecrets support to the csproj file:
-Added:
-<UserSecretsId>generated-a-guid</UserSecretsId>
+
+```<UserSecretsId>generated-a-guid</UserSecretsId>```
 
 
 
