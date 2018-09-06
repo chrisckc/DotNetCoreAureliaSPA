@@ -1,0 +1,33 @@
+version: '3.4'
+# Production configuration, specified in override.yml as the default to protect the production environment.
+services:
+  dotnetcore21-spa:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=https://+;http://+ # Default ports are 80 and 443
+      #- ASPNETCORE_URLS=https://+:443;http://+:80
+      #- ASPNETCORE_HTTP_PORT=5000 # used in sample code in Program.cs
+      - ASPNETCORE_HTTPS_PORT=5001 # This tells the UseHttpsRedirection middleware where to redirect
+
+      # Cert path and pass can be specified in env vars rather than UserSecrets
+      # UserSecrets not automatically loaded in Production, use env vars instead
+      # "Kestrel:Certificates:Default" is required for Production env
+      - Kestrel:Certificates:Default:Path=/root/.aspnet/https/dotnetcore21-spa.pfx
+      - Kestrel:Certificates:Default:Password=devcertpass # Don't do this in real Production env
+    ports:
+      # HOST:CONTAINER
+      - "5000:80"
+      - "5001:443"
+    volumes:
+      # Map host volumes for UserSecrets and exported dev cert
+
+      # This works when docker is running on localhost
+      #- ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets:ro,z
+      #- ${HOME}/.aspnet/https:/root/.aspnet/https:ro,z
+
+      # This works when docker is running on a seperate host
+      # Can't use HOME env var when running on seperate docker host
+      # Copy the files into your home dir on the docker host first
+      #- /home/chrisclaxton/.microsoft/usersecrets/:/root/.microsoft/usersecrets:ro,z
+      - /home/chrisclaxton/.aspnet/https:/root/.aspnet/https:ro,z
+    

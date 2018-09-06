@@ -1,0 +1,85 @@
+# ASP.NET Core with Aurelia SPA
+
+This is based on the latest .NET Core v2.1 Angular template and then updated to use Aurelia instead.
+
+Refer to Readme inside dotnetcore21-spa project dir for more details.
+
+This project template was created to use a base for converting other projects to a .NET Core backend and Aurelia SPA frontend inline with current practices for each framework.
+
+Specifically projects that used a Node/Express backend and Aurelia SPA frontend using the previously popular Gulp/JSPM/SystemJS/RequireJS build system.
+
+
+## Docker support
+
+Experimented with HTTPS support in docker container
+
+### To run in Dev mode (no real use for this scenario)
+```docker-compose -f docker-compose.yml -f docker-compose.dev.yml up```
+
+Visit your docker host:
+http://dockerhost:5000
+and you should be redirected to:
+https://dockerhost:5001 and see an error due to the Aurelia dev server not running inside the container.
+
+TODO: Update the Dockerfile to also run the Aurelia dev server when running in Development mode, this will require NodeJS to be installed into the dotnet runtime container...
+
+
+### To run in production mode (uses .override.yml file)
+```docker-compose up -d```
+
+Visit your docker host:
+http://dockerhost:5000
+and you should be redirected to:
+https://dockerhost:5001
+
+This works because the Aurelia dev server not used in production mode.
+Edit the ports in the docker-compose file for a real production env
+
+## Docker HTTPS details
+
+To remove the HTTPS support in docker, comment out the "ASPNETCORE_URLS" and "ASPNETCORE_HTTPS_PORT" env vars inside the docker-compose files.
+
+Also need to either remove the UserSecrets file or comment out the volume mapping:
+"....:/root/.microsoft/usersecrets:ro,z"
+otherwise the default Startup code will try to look for the certificate.
+
+Also comment out the "Kestrel:Certificates:..." env vars if used instead of UserSecrets
+
+#### Used this guide to help get it working:
+https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/aspnetcore-docker-https-development.md
+
+#### Adding UserSecrets
+https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-2.1&tabs=macos
+
+#### Docker Compose notes:
+Setup the docker-compose file as per notes here:
+https://github.com/aspnet/Docs/issues/6199
+
+### Mac OSX specific notes:
+
+#### Export the dev certs to correct location in home dir:
+```dotnet dev-certs https -v -ep ~/.aspnet/https/dotnetcore21-spa.pfx -p devcertpass```
+
+#### Generate a guid
+```uuidgen | awk '{print tolower($0)}'```
+
+#### Add "UserSecretsId" property with the new guid to .csproj file under "PropertyGroup":
+ ```
+ <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>bbeb0a3d-2552-47df-b31e-d2a3e7577545</UserSecretsId>
+```
+
+#### Don't specifically add the cert path to UserSecrets, it breaks:
+```dotnet user-secrets set "Kestrel:Certificates:Development:Path" "/root/.aspnet/https/dotnetcore21-spa.pfx"```
+Logged an issue here: https://github.com/aspnet/Docs/issues/6199
+#### To fix it, remove from UserSecrets
+```dotnet user-secrets remove "Kestrel:Certificates:Development:Path"```
+
+#### Just need to set the password, nothing else:
+```dotnet user-secrets set "Kestrel:Certificates:Development:Password" "devcertpass"```
+
+#### Check the entries have been added to the UserSecrets json file:
+```cat ~/.microsoft/usersecrets/bbeb0a3d-2552-47df-b31e-d2a3e7577545/secrets.json ```
+
+

@@ -1,0 +1,17 @@
+# OS
+#
+.DS_STORE
+Thumbs.db
+
+# Editors
+#
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Files that I don't want in source control
+# Any text files in the same dir as this file
+/*.txt

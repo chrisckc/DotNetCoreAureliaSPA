@@ -1,0 +1,12 @@
+version: '3.4'
+# Base config
+services:
+  dotnetcore21-spa:
+    image: dotnetcore21-spa
+    build:
+      context: dotnetcore21-spa
+    container_name: dotnetcore21-spa
+
+    # use this to override the Dockerfile entrypoint and keep the container running if dotnet startup fails
+    # use for debugging and to diagnose startup issues etc.
+    #entrypoint: /bin/bash -c "dotnet dotnetcore21-spa.dll || sleep 3600"
