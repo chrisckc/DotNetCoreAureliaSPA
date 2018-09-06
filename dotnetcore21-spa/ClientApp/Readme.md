@@ -19,7 +19,7 @@ To obtain the files from the old Aurelia template, use the SpaTemplate generator
 
 ### Aurelia Project Creation and Configuration
 
-Rename / move or delete the existing ClietApp dir.
+Rename / move or delete the existing ClientApp dir.
 Run this from within the dotnet project folder:
 
 ```au new```
@@ -50,12 +50,6 @@ Would you like to install the project dependencies?
 folder. You can use cd ClientApp to get there. Once in your project folder, simply run your new app with au
 run. Your app will run fully bundled. If you would like to have it auto-refresh whenever you make changes to your HTML, JavaScript or CSS, simply use the --watch flag If you want to build your app for production, run au build --env prod. That's just about all there is to it. If you need help, simply run au help."
 
-> Now run your aurelia dev server with:
-
-> au run --watch --hmr
-> or
-> npm start
-
 A new ClientApp dir will now have been generated.
 
 ### Update the ClientApp dir
@@ -64,4 +58,52 @@ Add the files from the old dotnet generated Aurelia template to the ClientApp pr
 Re-structure the files if required.
 
 This process can also be used to migrate an existing Aurelia App to the CLI / Webpack that was built using a different build system such as Gulp using module loaders such as SystemJS or RequireJS.
+
+### Running and building
+
+#### Run in dev mode
+
+launch in Watch mode (Watches source files for changes and refreshes the bundles automatically)
+
+```au run --watch```
+
+or
+
+```npm start```
+
+or launch in Hot Module Reload mode
+
+```au run --watch --hmr```
+
+#### Analyze in dev mode
+
+```au run --analyze```
+
+opens up the Webpack Bundler Analyzer, giving you a nice visualization of the bundle contents.
+
+
+#### Build in production mode:
+
+```au build --env prod```
+
+output will end up in the dist folder, everything you need to deploy can be found in the dist folder. Just copy this to the webserver and you'll be good to go.
+
+#### Run in production mode:
+
+```au run --env prod```
+
+or
+
+```au run --watch --env prod```
+
+or
+
+```npm start -- build```
+
+```npm start -- serve```
+
+#### Analyze in production mode
+
+```au run --analyze --env prod```
+
 

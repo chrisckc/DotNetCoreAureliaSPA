@@ -29,3 +29,12 @@ node_modules
 
 # Compiled files
 scripts
+/dist
+/test/*coverage
+/test/coverage*
+/.chrome
+
+# Logs
+npm-debug.log*
+yarn-error.log
+
