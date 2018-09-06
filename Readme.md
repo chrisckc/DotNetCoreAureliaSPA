@@ -39,14 +39,14 @@ Edit the ports in the docker-compose file and use a real certificate for a real 
 
 ## Docker HTTPS details
 
-To remove the HTTPS support in docker, comment out the "ASPNETCORE_URLS" and "ASPNETCORE_HTTPS_PORT" env vars inside the docker-compose files.
+To remove the HTTPS support in docker, comment out the ```"ASPNETCORE_URLS"``` and ```"ASPNETCORE_HTTPS_PORT"``` env vars inside the docker-compose files.
 
 Also need to either remove the UserSecrets file or comment out the volume mapping:
-"....:/root/.microsoft/usersecrets:ro,z"
+```"....:/root/.microsoft/usersecrets:ro,z"```
 
 otherwise the default Startup code will try to look for the certificate.
 
-Also comment out the "Kestrel:Certificates:..." env vars if used instead of UserSecrets
+Also comment out the ```"Kestrel:Certificates:..."``` env vars if used instead of UserSecrets
 
 #### Used this guide to help get it working:
 https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/aspnetcore-docker-https-development.md
