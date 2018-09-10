@@ -1,6 +1,9 @@
 # SPA ClientApp created using the Aurelia CLI
 
-Aurelia CLI was used to create the ClientApp dir, the Aurelia templates files from the "Aurelia Skeleton Navigation" repo were then added (files from the TypeScript Webpack project)
+Aurelia CLI was used to create the ClientApp dir, the Aurelia template files from the "Aurelia Skeleton Navigation" repo and template files from the retired "Microsoft.AspNetCore.SpaTemplate" package were then added and combined.
+The "Microsoft.AspNetCore.SpaTemplate" uses a vertical nav menu, this was used to create a sub-menu (child router) navigation within the "Aurelia Skeleton Navigation" template. A small amount of refactoring was done to combine and organise the template.
+
+Files from the "Aurelia Skeleton Navigation" webpack template were used:
 https://github.com/aurelia/skeleton-navigation/tree/master/skeleton-typescript-webpack
 
 

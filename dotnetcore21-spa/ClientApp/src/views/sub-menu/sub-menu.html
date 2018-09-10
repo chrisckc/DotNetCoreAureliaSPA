@@ -1,0 +1,15 @@
+<template>
+  <require from="../../components/vertical-nav-menu/vertical-nav-menu.html"></require>
+  <section class="au-animate">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3">
+                <vertical-nav-menu router.bind="router"></vertical-nav-menu>
+            </div>
+            <div class="col-sm-9 body-content">
+                <router-view></router-view>
+            </div>
+        </div>
+    </div>
+  </section>
+</template>
