@@ -78,6 +78,7 @@ https://github.com/aspnet/Docs/issues/6199
 Logged an issue here: https://github.com/aspnet/Docs/issues/6199
 #### To fix it, remove from UserSecrets
 ```dotnet user-secrets remove "Kestrel:Certificates:Development:Path"```
+Refer to this to see why it's broken: https://github.com/aspnet/Hosting/issues/1294
 
 #### Just need to set the password, nothing else:
 ```dotnet user-secrets set "Kestrel:Certificates:Development:Password" "devcertpass"```

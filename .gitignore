@@ -12,6 +12,9 @@ Thumbs.db
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# Visual Studio 2015 cache/options directory
+.vs/
+
 # Files that I don't want in source control
 # Any text files in the same dir as this file
 /*.txt

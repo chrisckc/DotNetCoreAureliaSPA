@@ -77,6 +77,16 @@ Changes to the ClientApp code will auto-refresh the browser.
 To also auto-refresh the browser on changes to the .NET code use:
 ```dotnet watch run```
 
+
+### Testing
+
+To run the unit tests:
+`au jest`
+
+To run the UI tests:
+`au karma`
+
+
 ### Publishing
 ```dotnet publish -c Release```
 This builds and publishes both the .NET App and the Aurelia App.

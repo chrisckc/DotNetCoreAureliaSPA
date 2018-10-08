@@ -7,7 +7,7 @@ describe('WelcomeComponent', () => {
 
   beforeEach(async () => {
     component = StageComponent
-      .withResources(PLATFORM.moduleName('views/welcome'))
+      .withResources(PLATFORM.moduleName('views/welcome/welcome'))
       .inView('<welcome></welcome>');
     await component.create(bootstrap);
   });

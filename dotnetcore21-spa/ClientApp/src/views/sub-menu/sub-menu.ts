@@ -2,10 +2,11 @@ import { Router, RouterConfiguration } from 'aurelia-router';
 import { PLATFORM } from 'aurelia-pal';
 
 export class SubMenu {
+  public heading = 'Child Router';
   router: Router;
   
   configureRouter(config: RouterConfiguration, router: Router) {
-    config.title = 'AureliaTest';
+    config.title = 'Sub Menu';
     config.map([{
         route: [ '', 'home' ],
         name: 'home',
