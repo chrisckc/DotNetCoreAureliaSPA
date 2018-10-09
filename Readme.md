@@ -2,11 +2,29 @@
 
 This is based on the latest .NET Core v2.1 Angular template and then updated to use Aurelia instead.
 
-Refer to Readme inside dotnetcore21-spa project dir for more details.
+The latest .NET Core v2.1 Angular template proxies requests to the Angular CLI server while in dev mode and serves the Angular app from static files when in production mode.
+This project provides an Aurelia app configured in the same way, refer to Readme inside dotnetcore21-spa project dir for more details..
+
+The main advantage to this method is to remove the need for CORS in both development and production by serving both the back-end API and the Client App from the same origin.
 
 This project template was created to use a base for converting other projects to a .NET Core backend and Aurelia SPA frontend inline with current practices for each framework.
 
 Specifically projects that used a Node/Express backend and Aurelia SPA frontend using the previously popular Gulp/JSPM/SystemJS/RequireJS build system.
+
+## VSCode
+
+This project has been configured to run in VSCode with Javascript debugging.
+
+To run the project, launch 2 separate VSCode instances, on against the root directory and one against the "dotnetcore21-spa/ClientApp" dir.
+
+1. In the root VSCode instance, run in Debug by selecting the ".NET Core Launch (web)" profile
+
+2. In the ClientApp VSCode instance, run in Debug by selecting the "Chrome Https 5001 Launch Debug" profile.
+
+The second VSCode instance will launch Chrome pointing at https://localhost:5001 which is proxied through the dotnet app
+
+Breakpoints can be set in both the back-end .Net Core Web Api and the front-end Aurelia client and will be hit in the relevant VSCode instance.
+
 
 
 ## Docker support
