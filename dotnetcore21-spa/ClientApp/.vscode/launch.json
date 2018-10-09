@@ -5,15 +5,30 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Chrome",
+      "name": "Chrome Https 5001 Launch Debug",
       "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:8080",
+      "url": "https://localhost:5001",
       "webRoot": "${workspaceRoot}/src",
       "userDataDir": "${workspaceRoot}/.chrome",
       "sourceMapPathOverrides": {
         "webpack:///./src/*": "${webRoot}/*"
-      }
-    }
+      },
+      "port": 9223,
+      "disableNetworkCache": true
+    },
+    {
+      "name": "Chrome Http 8080 Launch Debug",
+      "type": "chrome",
+      "request": "launch",
+      "url": "https://localhost:5001",
+      "webRoot": "${workspaceRoot}/src",
+      "userDataDir": "${workspaceRoot}/.chrome",
+      "sourceMapPathOverrides": {
+        "webpack:///./src/*": "${webRoot}/*"
+      },
+      "port": 9223,
+      "disableNetworkCache": true
+    },
   ]
 }

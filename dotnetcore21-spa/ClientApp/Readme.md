@@ -148,5 +148,3 @@ Integration tests can be performed with [Protractor](http://angular.github.io/pr
 2. Run the tests by invoking
 
 ```au protractor```
-
-

@@ -77,11 +77,9 @@ Changes to the ClientApp code will auto-refresh the browser.
 To also auto-refresh the browser on changes to the .NET code use:
 ```dotnet watch run```
 
-
 ### Aurelia Testing
 
 Refer to the detailed Readme.md inside the ClientApp dir.
-
 
 ### Publishing
 ```dotnet publish -c Release```
