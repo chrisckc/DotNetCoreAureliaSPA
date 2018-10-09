@@ -54,12 +54,12 @@ From within the ClientApp dir run:
 ### Running in dev
 To run this in dev you need to run both dotnet and the Aurelia dev server (Webpack dev server)
 
-#### dotnet application:
+#### .Net Core application:
 From within the dotnetcore21-spa dir run:
 
 ```dotnet run```
 
-#### aurelia/webpack dev server:
+#### Aurelia/Webpack dev server:
 From within the ClientApp dir run:
 
 ```au run --watch```
@@ -78,13 +78,9 @@ To also auto-refresh the browser on changes to the .NET code use:
 ```dotnet watch run```
 
 
-### Testing
+### Aurelia Testing
 
-To run the unit tests:
-`au jest`
-
-To run the UI tests:
-`au karma`
+Refer to the detailed Readme.md inside the ClientApp dir.
 
 
 ### Publishing

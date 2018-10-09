@@ -49,13 +49,17 @@ https://github.com/aurelia/skeleton-navigation/commit/6f4ec02136bfdd4f4575850d32
 
 #### Run in dev mode
 
-launch in Watch mode (Watches source files for changes and refreshes the bundles automatically)
+Builds the app and then launches
 
-```au run --watch```
+```au run```
 
 or
 
 ```npm start```
+
+Launches in Watch mode (Watches source files for changes and refreshes the bundles automatically)
+
+```au run --watch```
 
 or launch in Hot Module Reload mode
 
@@ -99,5 +103,50 @@ or
 #### Analyze in production mode
 
 ```au run --analyze --env prod```
+
+### Testing
+
+This skeleton provides three frameworks for running tests. You can choose one or two and remove the other, or even use all of them for different types of tests. By default, both Jest and Karma are configured to run the same tests with Jest's matchers (see Jest documentation for more information).
+
+If you wish to only run certain tests under one of the runners, wrap them in an `if`, like this:
+
+```js
+if (jest) {
+  // since only jest supports creating snapshot:
+  it('should render correctly', () => {
+    expect(document.body.outerHTML).toMatchSnapshot();
+  });
+}
+```
+
+#### Jest + Jasmine 2
+
+Jest is a powerful unit testing runner and framework.
+It runs really fast, however the tests are run under NodeJS, not the browser.
+
+```au jest```
+
+```au jest watch```
+
+
+#### Karma + Jasmine 2
+
+Karma is also a powerful test runner, which by default runs in the browser. This means that whatever works in real browsers, should also work the same way in the unit tests. But it also means the framework is heavier to execute and not as lean to work with.
+
+```au karma```
+
+To run the Karma watcher (re-runs tests on changes), run:
+
+```au karma --watch```
+
+#### Protractor (E2E / integration tests)
+
+Integration tests can be performed with [Protractor](http://angular.github.io/protractor/#/).
+
+1. Place your E2E-Tests into the folder ```test/e2e``` and name them with the extension `.e2e.ts`.
+
+2. Run the tests by invoking
+
+```au protractor```
 
 
