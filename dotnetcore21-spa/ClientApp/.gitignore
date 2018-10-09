@@ -38,3 +38,7 @@ scripts
 npm-debug.log*
 yarn-error.log
 
+# Files that I don't want in source control
+# Any text files in the same dir as this file
+/*.txt
+
