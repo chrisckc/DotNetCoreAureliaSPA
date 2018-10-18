@@ -11,11 +11,25 @@ This project template was created to use a base for converting other projects to
 
 Specifically projects that used a Node/Express backend and Aurelia SPA frontend using the previously popular Gulp/JSPM/SystemJS/RequireJS build system.
 
+### Setup
+
+Make sure .NET Core SDK 2.1 and NodeJS is installed, the Latest 8.x LTS version is a good choice.
+
+Update NPM globally:
+```npm install npm@latest -g```
+
+Install Aurelia CLI globally:
+```npm install aurelia-cli -g```
+
+cd into dotnetcore21-spa/ClientApp dir
+
+From within the ClientApp dir run:
+```npm install```
+
+
 ## VSCode
 
 This project has been configured to run in VSCode with Javascript debugging.
-
-For the initial setup, cd into dotnetcore21-spa/ClientApp dir and run ```npm install```
 
 To run the project, launch 2 separate VSCode instances, on against the root directory and one against the "dotnetcore21-spa/ClientApp" dir.
 
