@@ -2,7 +2,7 @@ import { Router, RouterConfiguration } from 'aurelia-router';
 import { PLATFORM } from 'aurelia-pal';
 
 export class SubMenu {
-  public heading = 'Child Router';
+  public heading = 'Sub Menu';
   router: Router;
   
   configureRouter(config: RouterConfiguration, router: Router) {
@@ -28,7 +28,14 @@ export class SubMenu {
         moduleId: PLATFORM.moduleName('../fetchdata/fetchdata'),
         nav: true,
         title: 'Fetch data'
-    }]);
+    }, {
+        route: 'api-test',
+        name: 'api-test',
+        settings: { icon: 'th-list' },
+        moduleId: PLATFORM.moduleName('../api-test/api-test'),
+        nav: true,
+        title: 'Api Test'
+  }]);
 
     this.router = router;
   }

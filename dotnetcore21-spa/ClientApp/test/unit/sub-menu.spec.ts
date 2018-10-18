@@ -27,7 +27,7 @@ describe('the Sub Menu module', () => {
   });
 
   it('configures the heading', () => {
-    expect(sut.heading).toEqual('Child Router');
+    expect(sut.heading).toEqual('Sub Menu');
   });
 
   it('should have a home route', () => {

@@ -1,4 +1,6 @@
 import {App} from 'app';
+import {Router} from 'aurelia-router';
+import { HttpClient } from 'aurelia-fetch-client';
 
 class RouterStub {
   routes;
@@ -15,10 +17,11 @@ class RouterStub {
 describe('the App module', () => {
   let sut: any;
   let mockedRouter: any;
+  let mockedHttpClient: any;
 
   beforeEach(() => {
     mockedRouter = new RouterStub();
-    sut = new App();
+    sut = new App(mockedRouter, mockedHttpClient);
     sut.configureRouter(mockedRouter, mockedRouter);
   });
 
@@ -39,6 +42,6 @@ describe('the App module', () => {
   });
 
   it('should have a child router route', () => {
-    expect(sut.router.routes).toContainEqual({ route: 'sub-menu', name: 'sub-menu', moduleId: './views/sub-menu/sub-menu', nav: true, title: 'Child Router' });
+    expect(sut.router.routes).toContainEqual({ route: 'sub-menu', name: 'sub-menu', moduleId: './views/sub-menu/sub-menu', nav: true, title: 'Sub Menu' });
   });
 });

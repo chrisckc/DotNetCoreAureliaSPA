@@ -1,0 +1,140 @@
+<template>
+  <section>
+    <h2>${heading}</h2>
+    <form role="form" submit.delegate="submit()">
+      <div class="form-group">
+        <label for="baseUrl">Base Url</label>
+        <input type="text" id="baseUrl" value.bind="testClient.baseUrl" class="form-control" placeholder="base url">
+      </div>
+      <div class="form-group">
+        <label for="resourcePath">Resource Path</label>
+        <input type="text" id="resourcePath" value.bind="resourcePath" class="form-control" placeholder="resource path">
+      </div>
+      <label for="params">Query Parameters</label>
+      <div class="form-group form-inline">
+        <div class="input-group col-xs-3">
+          <span class="input-group-addon">Param1</span>
+          <input type="text" id="param1" value.bind="queryParamArray[0].name" placeholder="Name" class="form-control">
+        </div>
+        <input type="text" id="paramVal1" value.bind="queryParamArray[0].value" placeholder="Value" class="form-control">
+        <div class="input-group col-xs-3">
+          <span class="input-group-addon">Param2</span>
+          <input type="text" id="param2" value.bind="queryParamArray[1].name" placeholder="Name" class="form-control">
+        </div>
+        <input type="text" id="paramVal2" value.bind="queryParamArray[1].value" placeholder="Value" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Absolute Url</label>
+        <p class="help-block">${absoluteUrl}</p>
+      </div>
+      <div class="form-group form-inline">
+        <div class="input-group col-xs-12">
+          <span class="input-group-addon" style="width: 160px">Bearer Token</span>
+          <input type="text" id="ch" value.bind="bearerToken" class="form-control">
+        </div>
+        <div class="input-group col-xs-9">
+          <span class="input-group-addon" style="width: 160px">Custom Header</span>
+          <input type="text" id="ch" value.bind="customHeader" class="form-control">
+        </div>
+        <div class="input-group col-xs-12">
+          <span class="input-group-addon" style="width: 160px">Header Value</span>
+          <input type="text" id="chv" value.bind="customHeaderValue" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group col-xs-12">
+          <label class="checkbox-inline"><input type="checkbox" checked.bind="testClient.allowEmptyJsonResponses">
+            Allow Empty Json Responses</label>
+          <label class="checkbox-inline"><input type="checkbox" checked.bind="testClient.allowOnlyObjectsAndArraysInJsonRoot">
+            Allow Only Objects and Arrays in Json Root</label>
+        </div><br />
+        <div class="btn-group">
+          <span class="button-group-addon">Always Populate Response Body</span>
+          <button type="button" class="btn btn-default ${testClient.alwaysPopulateResponseBody ? 'btn-primary active' : ''}"
+            click.delegate="toggleAlwaysPopulateResponseBody(true)">Yes</button>
+          <button type="button" class="btn btn-default ${!testClient.alwaysPopulateResponseBody ? 'btn-primary active' : ''}"
+            click.delegate="toggleAlwaysPopulateResponseBody(false)">No</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="button" class="btn btn-default" click.delegate="testClient.abortController.abort()">Abort</button>
+        <span style="display: inline-block;width: 50px">
+          <i if.bind="isLoading" class="fa fa-spinner fa-spin fa-2x"></i>
+        </span>
+        <label>Pending Request Count: </label> ${testClient.pendingRequestCount}
+      </div>
+      <div class="input-group col-xs-12">
+        <span class="input-group-addon" style="width: 120px">Url</span>
+        <input type="text" id="url" value.bind="apiResponse.url" class="form-control readonly-input" readonly="true">
+      </div>
+      <div class="form-group form-inline">
+        <div class="input-group col-xs-12">
+          <span class="input-group-addon" style="width: 120px">Status Code</span>
+          <input type="text" id="statuscode" value.bind="apiResponse.statusCode" class="form-control readonly-input"
+            readonly="true">
+          <span class="input-group-addon success" show.bind="apiResponse.statusCode >= 200 && apiResponse.statusCode < 300"><span
+              class="glyphicon glyphicon-ok"></span></span>
+          <span class="input-group-addon info" show.bind="apiResponse.statusCode >= 300 && apiResponse.statusCode < 400"><span
+              class="glyphicon glyphicon-info-sign"></span></span>
+          <span class="input-group-addon warning" show.bind="apiResponse.statusCode >= 400 && apiResponse.statusCode < 500"><span
+              class="glyphicon glyphicon-warning-sign"></span></span>
+          <span class="input-group-addon danger" show.bind="apiResponse.statusCode >= 500"><span class="glyphicon glyphicon-remove"></span></span>
+          <span class="input-group-addon">StatusText</span>
+          <input type="text" id="statusText" value.bind="apiResponse.statusText" class="form-control readonly-input"
+            readonly="true">
+        </div>
+        <div class="input-group col-xs-9">
+          <span class="input-group-addon" style="width: 120px">ContentType</span>
+          <input type="text" id="contentType" value.bind="apiResponse.contentType" class="form-control readonly-input"
+            readonly="true">
+        </div>
+        <div class="input-group col-xs-12">
+          <span class="input-group-addon" style="width: 120px">ResponseType</span>
+          <input type="text" id="responseType" value.bind="apiResponse.responseType" class="form-control readonly-input"
+            readonly="true">
+          <span class="input-group-addon">Redirected</span>
+          <input type="text" id="redirected" value.bind="apiResponse.redirected" class="form-control readonly-input"
+            readonly="true">
+        </div>
+        <div class="input-group col-xs-6">
+          <span class="input-group-addon" style="width: 120px">Duration (ms)</span>
+          <input type="text" id="duration" value.bind="apiResponse.duration" class="form-control readonly-input"
+            readonly="true">
+        </div>
+      </div>
+      <!-- Show error details -->
+      <div class="alert alert-danger fade in" show.bind="errorTitle || errorType || errorDetail">
+        <div>
+          <span class="input-group-addon">Error Title</span>
+          <pre class="bg-white border-none"><code>${errorTitle}</code></pre>
+        </div>
+        <div>
+          <span class="input-group-addon">Error Type</span>
+          <pre class="bg-white border-none"><code>${errorType}</code></pre>
+        </div>
+        <div>
+          <span class="input-group-addon">Error Detail</span>
+          <pre class="bg-transparent border-none"><code>${errorDetail}</code></pre>
+        </div>
+        <div>
+          <span class="input-group-addon">Error Stack</span>
+          <pre class="bg-transparent border-none"><code>${apiResponse.error.stack}</code></pre>
+        </div>
+      </div>
+      <div class="panel panel-primary">
+        <div class="panel-heading">Response Headers)</div>
+        <pre class="bg-white border-none"><code>${responseHeaders}</code></pre>
+      </div>
+      <div class="panel panel-primary">
+        <div class="panel-heading">JSON Data (value type: ${apiResponse.dataType})</div>
+        <pre class="bg-white border-none"><code>${jsonString}</code></pre>
+      </div>
+      <div class="panel panel-primary">
+        <div class="panel-heading">Response Body (length: ${apiResponse.body ? apiResponse.body.length: 0})</div>
+        <pre class="bg-white border-none"><code>${apiResponse.body}</code></pre>
+      </div>
+    </form>
+  </section>
+</template>

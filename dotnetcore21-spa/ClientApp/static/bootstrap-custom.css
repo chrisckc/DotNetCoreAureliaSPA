@@ -1,0 +1,74 @@
+
+
+.input-group-addon.primary {
+    color: rgb(255, 255, 255);
+    background-color: rgb(50, 118, 177);
+    border-color: rgb(40, 94, 142);
+}
+.input-group-addon.success {
+    color: rgb(255, 255, 255);
+    background-color: rgb(92, 184, 92);
+    border-color: rgb(76, 174, 76);
+}
+.input-group-addon.info {
+    color: rgb(255, 255, 255);
+    background-color: rgb(57, 179, 215);
+    border-color: rgb(38, 154, 188);
+}
+.input-group-addon.warning {
+    color: rgb(255, 255, 255);
+    background-color: rgb(240, 173, 78);
+    border-color: rgb(238, 162, 54);
+}
+.input-group-addon.danger {
+    color: rgb(255, 255, 255);
+    background-color: rgb(217, 83, 79);
+    border-color: rgb(212, 63, 58);
+}
+
+/* use a disabled button as a button group addon as bootstrap has no built in equivalent */
+button[disabled].btn.button-group-addon {
+    color: #555;
+    background-color: #eee;
+    cursor: text;
+    filter: alpha(opacity=100);
+    opacity: 1;
+}
+
+/* apply to a span to use it as a button group addon as bootstrap has no built in equivalent */
+.button-group-addon, .button-group-addon-right {
+    width: auto;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: normal;
+    color: #555;
+    text-align: center;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: table-cell;
+    white-space: nowrap;
+    vertical-align: middle;
+    float: left;
+}
+
+/* apply to a span to use it as a button group addon on the left hand side */
+.button-group-addon:first-child {
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+/* apply to a span to use it as a button group addon on the right hand side */
+.button-group-addon-right:first-child {
+    border-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+input[readonly].readonly-input {
+  background-color: #f5f5f5;
+}
+
+.panel > pre {
+  margin: 0;
+}

@@ -45,6 +45,8 @@ namespace dotnetcore21_spa
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // In production, the Angular files will be served from this directory
@@ -58,6 +60,19 @@ namespace dotnetcore21_spa
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger<Startup> logger)
         {
             logger.LogInformation($"env.EnvironmentName: {env.EnvironmentName}"); //Log the exact name of the environment
+            
+            // app.UseCors(builder => 
+            //     builder.AllowAnyOrigin()
+            //         .AllowAnyMethod().AllowAnyHeader()
+            //     );
+
+            app.UseCors(builder => 
+                builder.WithOrigins("http://localhost:8080","http://localhost")
+                    .AllowAnyMethod().AllowAnyHeader()
+                    //.AllowCredentials()
+                    //.WithExposedHeaders("x-custom-header")
+                );
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
