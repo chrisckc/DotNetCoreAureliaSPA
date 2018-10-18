@@ -21,7 +21,7 @@
       "name": "Chrome Http 8080 Launch Debug",
       "type": "chrome",
       "request": "launch",
-      "url": "https://localhost:5001",
+      "url": "https://localhost:8080",
       "webRoot": "${workspaceRoot}/src",
       "userDataDir": "${workspaceRoot}/.chrome",
       "sourceMapPathOverrides": {
