@@ -14,7 +14,7 @@ const when = (condition, config, negativeConfig) =>
   condition ? ensureArray(config) : ensureArray(negativeConfig);
 
 // primary config:
-const title = 'Aurelia Navigation Skeleton';
+const title = 'Aurelia';
 const outDir = path.resolve(__dirname, project.platform.output);
 const srcDir = path.resolve(__dirname, 'src');
 const nodeModulesDir = path.resolve(__dirname, 'node_modules');
@@ -38,7 +38,8 @@ module.exports = ({production, server, extractCss, coverage, analyze, karma} = {
   },
   entry: {
     app: ['aurelia-bootstrapper'],
-    vendor: ['bluebird'],
+    // required to get jquery and bootstrap to work without having to import it in main.ts
+    vendor: ['bluebird', 'jquery', 'bootstrap'],
   },
   mode: production ? 'production' : 'development',
   output: {
@@ -79,6 +80,8 @@ module.exports = ({production, server, extractCss, coverage, analyze, karma} = {
       { test: /\.tsx?$/, loader: "ts-loader" },
       // use Bluebird as the global Promise implementation:
       { test: /[\/\\]node_modules[\/\\]bluebird[\/\\].+\.js$/, loader: 'expose-loader?Promise' },
+      // exposes jQuery globally as $ and as jQuery:
+      { test: require.resolve('jquery'), loader: 'expose-loader?$!expose-loader?jQuery' },
       // embed small images and fonts as Data Urls and larger ones as files:
       { test: /\.(png|gif|jpg|cur)$/i, loader: 'url-loader', options: { limit: 8192 } },
       { test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff2' } },

@@ -8,6 +8,28 @@
     <!-- imported CSS are concatenated and added automatically -->
   </head>
   <body aurelia-app="main">
+    <!-- Aurelia is not yet loaded, to present a similar look to the app, copy in the markup from nav-bar.html and remove any Aurelia bindings. -->
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#skeleton-navigation-navbar-collapse">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">
+              <i class="fa fa-home"></i>
+              <span><%- htmlWebpackPlugin.options.metadata.title %></span>
+            </a>
+        </div>
+      </div>
+    </nav>
+    <div class="page-host">
+      <div class="splash">
+        <i class="fa fa-spinner fa-spin"></i>
+      </div>
+    </div>
     <% if (htmlWebpackPlugin.options.metadata.server) { %>
     <!-- Webpack Dev Server reload -->
     <script src="/webpack-dev-server.js"></script>

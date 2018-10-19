@@ -5,9 +5,9 @@ import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../static/bootstrap-custom.css'; // add after the bootstrap import
 import '../static/styles.css'; // we want our styles added last
-import 'jquery';
+//import 'jquery';
 //import $ from 'jquery'
-import 'bootstrap'
+//import 'bootstrap'
 import { Aurelia } from 'aurelia-framework';
 import { PLATFORM } from 'aurelia-pal';
 import * as Bluebird from 'bluebird';
