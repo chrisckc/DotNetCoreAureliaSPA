@@ -13,14 +13,21 @@ li.au-target.link-active a:focus {
 /* Keep the nav menu independent of scrolling and on top of other items */
 .vertical-nav {
     position: fixed;
-    top: 0;
+    /* top: 0; */
     left: 0;
     right: 0;
     z-index: 1;
 }
 
+.body-content {
+  margin-top:70px;
+}
+
 @media (min-width: 768px) {
-    /* On small screens, convert the nav menu to a vertical sidebar */
+    .body-content {
+      margin-top:0px;
+    }
+    /* On larger screens, convert the nav menu to a vertical sidebar */
     .vertical-nav {
         height: 100%;
         width: calc(25% - 20px);
