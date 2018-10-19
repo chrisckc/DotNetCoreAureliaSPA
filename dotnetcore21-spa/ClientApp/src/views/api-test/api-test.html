@@ -6,9 +6,30 @@
         <label for="baseUrl">Base Url</label>
         <input type="text" id="baseUrl" value.bind="testClient.baseUrl" class="form-control" placeholder="base url">
       </div>
+      <!-- <div> Method:
+        <select id="method" value.bind="httpMethod">
+          <option repeat.for="option of httpMethodOptions" value.bind="option.value">${option.name}</option>
+        </select>
+        ${httpMethod}
+      </div> -->
       <div class="form-group">
-        <label for="resourcePath">Resource Path</label>
-        <input type="text" id="resourcePath" value.bind="resourcePath" class="form-control" placeholder="resource path">
+        <label for="resourcePath">Method &nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp Resource Path</label>
+        <div class="input-group col-xs-12">
+          <div class="dropdown input-group-btn">
+            <button class="btn btn-default dropdown-toggle" style="width: 68px" type="button" id="httpMethodDropdown" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              ${httpMethod}
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="httpMethodDropdown">
+              <li repeat.for="option of httpMethodOptions" class="${httpMethod == option.name ? 'active' : ''}">
+                <a click.delegate="setHttpMethod(option.value)">${option.name}</a>
+              </li>
+            </ul>
+          </div>
+          <input type="text" id="resourcePath" value.bind="resourcePath" class="form-control" placeholder="resource path">
+        </div>
+
       </div>
       <label for="params">Query Parameters</label>
       <div class="form-group form-inline">
@@ -27,6 +48,11 @@
       <div class="form-group">
         <label>Absolute Url</label>
         <p class="help-block">${absoluteUrl}</p>
+      </div>
+      <div class="panel panel-primary" show.bind="httpMethod !== 'GET'">
+        <div class="panel-heading">Request Body JSON</div>
+        <textarea class="form-control" rows="6" placeholder="enter json string here..." value.bind="requestBody"></textarea>
+        <!-- <pre class="bg-white border-none"><code>${requestBody}</code></pre> -->
       </div>
       <div class="form-group form-inline">
         <div class="input-group col-xs-12">
@@ -65,9 +91,15 @@
         </span>
         <label>Pending Request Count: </label> ${testClient.pendingRequestCount}
       </div>
+      <div class="alert alert-danger fade in" show.bind="requestBodyParseError">
+        <div>
+          <span class="input-group-addon">Request Body Parsing Error: ${requestBodyParseError.name}</span>
+          <pre class="bg-white border-none"><code>${requestBodyParseError.message}</code></pre>
+        </div>
+      </div>
       <div class="input-group col-xs-12">
-        <span class="input-group-addon" style="width: 120px">Url</span>
-        <input type="text" id="url" value.bind="apiResponse.url" class="form-control readonly-input" readonly="true">
+        <span class="input-group-addon" style="width: 120px">Method | Url</span>
+        <input type="text" id="url" value.bind="apiResponse.url ? `${apiResponse.method} | ${apiResponse.url}` : ''" class="form-control readonly-input" readonly="true">
       </div>
       <div class="form-group form-inline">
         <div class="input-group col-xs-12">

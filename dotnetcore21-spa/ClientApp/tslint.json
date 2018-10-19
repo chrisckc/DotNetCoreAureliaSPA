@@ -1,5 +1,12 @@
 {
   "extends": "tslint:recommended",
+  "linterOptions": {
+    "exclude": [
+      "aurelia_project/**",
+      "node_modules/**",
+      "**/*.d.ts"
+    ]
+  },
   "rules": {
     "semicolon": [true, "always", "ignore-bound-class-methods"],
     "quotemark": [true, "single", "avoid-escape", "avoid-template"],
@@ -20,7 +27,15 @@
     ],
     "jsdoc-format": false,
     "comment-format": false,
-    "max-line-length":false,
-    "interface-name": false
+    "max-line-length": false,
+    "interface-name": false,
+    "object-literal-sort-keys": false,
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "any",
+        "named-imports-order": "case-insensitive"
+      }
+    ]
   }
 }

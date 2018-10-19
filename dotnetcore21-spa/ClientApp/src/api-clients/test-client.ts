@@ -22,7 +22,9 @@ export class TestClient extends ApiClient {
     logger.debug('activate');
   }
 
-  public getData(resource: string, queryParamObject?: any, headers?: any): Promise<ApiResponse> {
-    return this.getResource(resource, queryParamObject, headers);
+  // eg. provide some methods for getting different data
+  public getDemoData(): Promise<ApiResponse> {
+    const resource = '/api/ResponseTest/Get200'; // get this resource string from a config file instead
+    return this.getResource(resource);
   }
 }

@@ -7,6 +7,7 @@ import { observable } from 'aurelia-framework';
 import { computedFrom } from 'aurelia-framework';
 import { QueryParam, TestClient } from '../../api-clients/test-client';
 import { ApiResponse } from '../../models/api-response';
+import { timingSafeEqual } from 'crypto';
 // Setup the logger
 const logger = LogManager.getLogger('api-test');
 
@@ -15,8 +16,16 @@ export class ApiTest {
   public heading: string = 'Api Client Test';
   public isLoading: boolean;
   @observable public baseUrl: string;
+  public httpMethod: string = 'GET';
+  public httpMethodOptions: any[] = [
+    { name: 'GET', value: 'GET' },
+    { name: 'POST', value: 'POST' },
+    { name: 'PUT', value: 'PUT' },
+  ];
   public resourcePath: string = '/api/ResponseTest/Get200';
-  public queryParamArray: QueryParam[] = [ { name: null, value: null}, { name: null, value: null} ];
+  public queryParamArray: QueryParam[] = [{ name: null, value: null }, { name: null, value: null }];
+  public requestBody: string;
+  public requestBodyParseError: Error;
   @observable public bearerToken: string;
   public customHeader: string;
   public customHeaderValue: string;
@@ -53,6 +62,10 @@ export class ApiTest {
     //return `${this.baseUrl}${resource}`;
   }
 
+  public setHttpMethod(method: string) {
+    this.httpMethod = method;
+  }
+
   public toggleAlwaysPopulateResponseBody(state: boolean) {
     if (state) {
       this.testClient.alwaysPopulateResponseBody = true;
@@ -79,8 +92,17 @@ export class ApiTest {
         [this.customHeader]: [this.customHeaderValue]
       };
     }
+    let bodyObject = null;
+    if (this.requestBody && this.httpMethod !== 'GET') {
+      try {
+        bodyObject = JSON.parse(this.requestBody);
+      } catch (error) {
+        this.requestBodyParseError = error;
+        return;
+      }
+    }
     logger.info('submit: getting data...');
-    this.GetData(this.resourcePath, queryParamObject, headers);
+    this.GetData(this.resourcePath, queryParamObject, bodyObject, headers);
   }
 
   // If this method is called multiple times before the previous request has returned,
@@ -88,14 +110,14 @@ export class ApiTest {
   // If the user navigates away from the app the request is also aborted by the browser
   // If the user navigates to a different view in the app,
   // the request is aborted by calling abort() inside deactivate method
-  public GetData(resource: string, queryParams: any, headers: any) {
+  public GetData(resource: string, queryParams: any, bodyObject: any, headers: any) {
     // If the signal has been aborted we need to create a new AbortController
     if (this.testClient.abortController.signal.aborted) {
       this.testClient.abortController = new AbortController();
     }
     // Perform the Fetch
     this.isLoading = true;
-    this.testClient.getData(resource, queryParams, headers)
+    this.testClient.fetchResource(this.httpMethod, resource, queryParams, bodyObject, headers)
       .then((apiResponse) => {
         logger.info('apiResponse:', apiResponse);
         this.isLoading = false;
@@ -134,6 +156,7 @@ export class ApiTest {
   }
 
   private resetProperties() {
+    this.requestBodyParseError = null;
     this.apiResponse = null;
     this.errorTitle = null;
     this.errorType = null;

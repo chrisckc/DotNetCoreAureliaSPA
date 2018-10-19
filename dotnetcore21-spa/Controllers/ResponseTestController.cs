@@ -118,6 +118,7 @@ namespace DemoServer.Controllers
             return obj;
         }
 
+        [HttpGet] // without this decorator the method would accept any http method
         public ActionResult<dynamic> Get200()
         {
             var list = new List<dynamic>();
