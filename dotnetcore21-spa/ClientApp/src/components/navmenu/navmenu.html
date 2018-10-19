@@ -15,7 +15,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li repeat.for = "row of router.navigation" class="${ row.isActive ? 'link-active' : '' }" >
-                        <a href.bind = "row.href">
+                        <a data-toggle="collapse" data-target=".navbar-collapse.in" href.bind = "row.href">
                             <span class="glyphicon glyphicon-${ row.settings.icon }"></span> ${ row.title }
                         </a>
                     </li>
