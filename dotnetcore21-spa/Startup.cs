@@ -12,9 +12,11 @@ namespace dotnetcore21_spa
 {
     public class Startup
     {
+        private readonly ILogger<Startup> _logger;
         public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
             Configuration = configuration;
+            _logger = logger;
             // Debugging info to help with running in Docker
             string defaultCertPath = configuration.GetSection("Kestrel:Certificates:Default:Path").Value;
             logger.LogInformation($"Kestrel Default cert path: {defaultCertPath}");
@@ -57,9 +59,9 @@ namespace dotnetcore21_spa
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            logger.LogInformation($"env.EnvironmentName: {env.EnvironmentName}"); //Log the exact name of the environment
+            _logger.LogInformation($"env.EnvironmentName: {env.EnvironmentName}"); //Log the exact name of the environment
             
             // app.UseCors(builder => 
             //     builder.AllowAnyOrigin()

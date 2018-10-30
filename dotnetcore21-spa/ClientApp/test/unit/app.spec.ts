@@ -17,11 +17,11 @@ class RouterStub {
 describe('the App module', () => {
   let sut: any;
   let mockedRouter: any;
-  let mockedHttpClient: any;
+  let mockedContainer: any;
 
   beforeEach(() => {
     mockedRouter = new RouterStub();
-    sut = new App(mockedRouter, mockedHttpClient);
+    sut = new App(mockedRouter, mockedContainer);
     sut.configureRouter(mockedRouter, mockedRouter);
   });
 
