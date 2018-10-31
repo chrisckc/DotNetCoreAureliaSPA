@@ -25,7 +25,9 @@ function runWebpack(done) {
 
   if (project.platform.hmr || CLIOptions.hasFlag('hmr')) {
     config.plugins.push(new webpack.HotModuleReplacementPlugin());
-    config.entry.app.unshift(`webpack-dev-server/client?http://${opts.host}:${opts.port}/`, 'webpack/hot/dev-server');
+    //config.entry.app.unshift(`webpack-dev-server/client?http://${opts.host}:${opts.port}/`, 'webpack/hot/dev-server');
+    // fixes issue with HMR ref: https://github.com/aspnet/JavaScriptServices/issues/1743
+    config.entry.app.unshift(`webpack-dev-server/client`, 'webpack/hot/dev-server');
   }
 
   const compiler = webpack(config);
