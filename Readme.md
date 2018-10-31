@@ -11,21 +11,37 @@ This project template was created to use a base for converting other projects to
 
 Specifically projects that used a Node/Express backend and Aurelia SPA frontend using the previously popular Gulp/JSPM/SystemJS/RequireJS build system.
 
+### Setup
+
+Make sure .NET Core SDK 2.1 and NodeJS is installed, the Latest 8.x LTS version is a good choice.
+
+Update NPM globally:
+```npm install npm@latest -g```
+
+Install Aurelia CLI globally:
+```npm install aurelia-cli -g```
+
+cd into dotnetcore21-spa/ClientApp dir
+
+From within the ClientApp dir run:
+```npm install```
+
+
 ## VSCode
 
 This project has been configured to run in VSCode with Javascript debugging.
 
 To run the project, launch 2 separate VSCode instances, on against the root directory and one against the "dotnetcore21-spa/ClientApp" dir.
 
-1. In the root VSCode instance, run in Debug by selecting the ".NET Core Launch (web)" profile
+1. In a separate terminal window, cd into dotnetcore21-spa/ClientApp dir and run ```au run --watch``` to run the Aurelia CLI dev server in watch mode.
 
-2. In the ClientApp VSCode instance, run in Debug by selecting the "Chrome Https 5001 Launch Debug" profile.
+2. In the root dir VSCode instance, run in Debug by selecting the ".NET Core Launch (web)" profile
+
+3. In the ClientApp VSCode instance, run in Debug by selecting the "Chrome Https 5001 Launch Debug" profile.
 
 The second VSCode instance will launch Chrome pointing at https://localhost:5001 which is proxied through the dotnet app
 
 Breakpoints can be set in both the back-end .Net Core Web Api and the front-end Aurelia client and will be hit in the relevant VSCode instance.
-
-
 
 ## Docker support
 
